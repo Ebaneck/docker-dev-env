@@ -10,3 +10,35 @@ mettre en place un système afin de géré un environnement de dev pour lancer u
 
 # Outcome
 Cet environnement sera duplicable et déployable facilement.
+
+
+Prerequisites
+-------------
+
+1.  Install Virtual Box for your host operating system
+
+    https://www.virtualbox.org
+
+2.  Install Vagrant for your host operating system
+
+    https://www.vagrantup.com
+
+Installation Steps
+
+vagrant build:
+
+    ```
+    $ git clone https://gitlab.com/Ebaneck/docker-ci_storelift.git
+    $ cd docker-ci_storelift
+    $ vagrant up
+    ```
+
+
+3.  Restart your new virtual computer and login:
+
+    ```
+    $ vagrant reload
+    ```
+
+    Username: vagrant
+    Password: vagrant
