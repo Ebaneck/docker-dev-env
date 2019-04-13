@@ -48,7 +48,7 @@
   user:
     name: postgres
     state: present
-    password: af3j4lkafjkaj932kmf321@
+    password: {{ system_user_password }}
 
 - name: Ensure postgresql is listening on all localhost
   lineinfile:
