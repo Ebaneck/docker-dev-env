@@ -3,18 +3,19 @@
 
 #install open jdk task here not the java version
 
+# Add specified repository into sources list for pycharm.
+- apt_repository:
+    repo: ppa:ubuntu-desktop/ubuntu-make
+    update_cache: yes
+
 - name: Install packages
   sudo: yes
   apt: pkg={{ item }}
   state: installed
   with_items:
-
+      #requirements to start with
       - git
-      # Database
-      - postgresql-9.6
-      - postgresql-9.6-postgis-2.3
-      - libpq-dev # Required for Ansible to interact with postgres
-      - python-psycopg2 # Required for Ansible to interact with postgres
+      - ubuntu-make
 
       # Python Dev
       - python-dev
@@ -22,9 +23,17 @@
       - python-virtualenv
       - python3-pip
       - atom
-      - pycharm
+      - pycharm-community
       - vim
       - jq
+      - vim-python-jedi
+
+      # Database
+      - postgresql-9.6
+      - postgresql-9.6-postgis-2.3
+      - libpq-dev # Required for Ansible to interact with postgres
+      - python-psycopg2 # Required for Ansible to interact with postgres
+
 
 
 - name: Start PostgreSQL and enable at boot
