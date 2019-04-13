@@ -16,7 +16,7 @@ cache:
 build:
   stage: build
   script:
-    - makes
+    - make
 
 testing:
   stage: test
