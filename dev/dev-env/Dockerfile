@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM registry.gitlab.com/ebaneck/docker-ci_storelift/build-env
 
 RUN apt-get update && apt-get install -y git qtcreator libxrender1 gdb fonts-ubuntu
 

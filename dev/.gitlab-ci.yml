@@ -1,9 +1,17 @@
 variables:
   REGISTRY: 'registry.gitlab.com/ebaneck/docker-ci_storelift'
 
+image: gitlab/dind
+
+services:
+  - docker:dind
+  
 stages:
   - build-env
   - dev-env
+
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY  
 
 build-env:
   stage: build-env
@@ -11,7 +19,7 @@ build-env:
     - cd build-env
     - IMAGE_NAME='build-env'
     - docker build -t $IMAGE_NAME .
-    - docker image tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME
+    - docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME
     - docker push $REGISTRY/$IMAGE_NAME
   only:
     - master
@@ -22,7 +30,7 @@ dev-env:
     - cd dev-env
     - IMAGE_NAME='dev-env'
     - docker build -t $IMAGE_NAME .
-    - docker image tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME
+    - docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME
     - docker push $REGISTRY/$IMAGE_NAME
   only:
-- master
+    - master
