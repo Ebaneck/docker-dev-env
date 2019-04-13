@@ -2,4 +2,4 @@
   become: true
   roles:
       - setup_dev_python
-      - setup_cplusplus_dev
+      - setup_dev_cplusplus
