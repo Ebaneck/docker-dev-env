@@ -42,3 +42,9 @@ vagrant build:
 
     Username: vagrant
     Password: vagrant
+
+
+References
+
+- https://blog.codecentric.de/en/2018/05/gitlab-ci-pipeline/
+- https://medium.com/devopslinks/c-development-environment-with-docker-and-gitlab-bc824d0b4e35

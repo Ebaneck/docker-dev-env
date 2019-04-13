@@ -1,0 +1,51 @@
+---
+- hosts: all
+  become: true
+
+  vars:
+    gitlab_domain: "gitlab.example.io"
+    gitlab_url: "https://{{ gitlab_domain }}"
+    gitlab_registry_url: "{{ gitlab_url }}:4567"
+    gitlab_runner_count: 5
+    gitlab_pages_domain: "pages.example.io"
+    gitlab_pages_url: "https://{{ gitlab_pages_domain }}"
+
+
+  tasks:
+  - name: Update apt
+    apt:
+      update_cache: yes
+    tags: update
+
+  - name: Prepare Docker on Linux node
+    import_tasks: prepare-docker-ubuntu.yml
+    tags: docker
+
+  - name: Prepare Let´s Encrypt certificates for Gitlab, if we setup an internal Server like Vagrant (you have to provide providername, providerusername & providertoken as extra-vars!)
+    import_tasks: letsencrypt.yml
+    when: providername is defined
+    tags: letsencrypt
+
+  - name: Install Gitlab on Linux node
+    import_tasks: install-gitlab.yml
+    tags: gitlab
+
+  - name: Configure Gitlab Container Registry
+    import_tasks: configure-gitlab-registry.yml
+    tags: registry
+
+  - name: Install & Register Gitlab Runner for Docker
+    import_tasks: gitlab-runner.yml
+    tags: runner
+
+  - name: Configure Gitlab Pages
+    import_tasks: pages.yml
+    tags: pages
+
+  - name: Congratulations!
+    debug:
+      msg:
+        - "Your Gitlab instance is ready at {{ gitlab_url }}"
+        - "The Gitlab Container Registry is waiting for your docker pushes at {{ gitlab_registry_url}}"
+        - "Gitlab Pages are served at {{ gitlab_pages_url }}"
+        - "Just open your Browser and login!"

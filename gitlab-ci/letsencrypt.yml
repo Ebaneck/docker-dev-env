@@ -1,0 +1,69 @@
+---
+  # This playbook should work for servers, that aren´t accessable from the internet (like our local Vagrant setup here)
+  # Be sure to use a real/purchased domain!
+
+  - name: Check, if there is a directory with the domain name (like gitlab.jonashackt.io) in dehydrated certs folder
+    find:
+      paths: "/srv/dehydrated/certs/"
+      file_type: directory
+    register: files_in_dehydrated_cert_folder
+
+  - set_fact:
+      certs_folder_empty: files_in_dehydrated_cert_folder.matched == 0
+
+  - name: No certs present in /srv/dehydrated/certs/
+    debug:
+      msg: "There are no certs present in /srv/dehydrated/certs/ (files in this dir: {{ files_in_dehydrated_cert_folder.files }}), we need to obtain new ones"
+    when: certs_folder_empty
+
+  - name: Obtain new Let´s Encrypt certificates for our GitLab domain which on a internally-only accessable VagrantBox
+    import_tasks: obtain-letsencrypt-certs-dehydrated-lexicon.yml
+#    when: certs_folder_empty
+
+  - name: Check, if generation of new certificates was successful
+    find:
+      paths: "/srv/dehydrated/certs/{{ gitlab_domain }}/cert.pem"
+    register: cert_pem_in_dehydrated_cert_folder
+
+  - set_fact:
+      success: cert_pem_in_dehydrated_cert_folder.matched != "0"
+
+  - name: Create Gitlab cert import folder /etc/gitlab/ssl for later Gitlab Installation usage
+    file:
+      path: /etc/gitlab/ssl
+      state: directory
+    when: success
+
+  - name: Copy certificate files to Gitlab cert import folder /etc/gitlab/ssl (see https://docs.gitlab.com/omnibus/settings/ssl.html#details-on-how-gitlab-and-ssl-work)
+    copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      remote_src: yes
+    with_items:
+      # - src: "/srv/dehydrated/certs/{{ gitlab_domain }}/cert.pem"
+      #   dest: "/etc/gitlab/ssl/{{ gitlab_domain }}.crt"
+      # We need to copy/use the fullchain.pem here instead of cert.pem! Otherwise we´ll get a "Error response from daemon: Get https://gitlab.jonashackt.io:5000/v2/: x509: certificate signed by unknown authority"
+      # Just have a look into the README at "### Ubuntu & Docker don´t know Let´s Encrypt so we need to copy the fullchain.pem instead of just the cert.pem!"
+      - src: "/srv/dehydrated/certs/{{ gitlab_domain }}/fullchain.pem"
+        dest: "/etc/gitlab/ssl/{{ gitlab_domain }}.crt"
+
+      - src: "/srv/dehydrated/certs/{{ gitlab_domain }}/privkey.pem"
+        dest: "/etc/gitlab/ssl/{{ gitlab_domain }}.key"
+
+    when: success
+
+  - name: Copy GitLab Pages certificate files to Gitlab cert import folder /etc/gitlab/ssl (see https://docs.gitlab.com/ee/administration/pages/index.html#wildcard-domains-with-tls-support)
+    copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      remote_src: yes
+    with_items:
+    # - src: "/srv/dehydrated/certs/{{ gitlab_domain }}/cert.pem"
+    #   dest: "/etc/gitlab/ssl/{{ gitlab_domain }}.crt"
+    # We need to copy/use the fullchain.pem here instead of cert.pem! Otherwise we´ll get a "Error response from daemon: Get https://gitlab.jonashackt.io:5000/v2/: x509: certificate signed by unknown authority"
+    # Just have a look into the README at "### Ubuntu & Docker don´t know Let´s Encrypt so we need to copy the fullchain.pem instead of just the cert.pem!"
+    - src: "/srv/dehydrated/certs/{{ gitlab_pages_domain }}/fullchain.pem"
+      dest: "/etc/gitlab/ssl/{{ gitlab_pages_domain }}.crt"
+
+    - src: "/srv/dehydrated/certs/{{ gitlab_pages_domain }}/privkey.pem"
+      dest: "/etc/gitlab/ssl/{{ gitlab_pages_domain }}.key"
