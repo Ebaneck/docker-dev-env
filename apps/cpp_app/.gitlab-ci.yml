@@ -2,7 +2,7 @@
 #use a private registry using
 #image: <your docker registry>:5000/build-env
 
-image: ubuntu:18.04
+image: registry.gitlab.com/ebaneck/docker-ci_storelift/build-env
 stages:
   - build
   - test
