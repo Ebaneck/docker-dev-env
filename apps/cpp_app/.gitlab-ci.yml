@@ -2,10 +2,14 @@
 #use a private registry using
 #image: <your docker registry>:5000/build-env
 
+variables:
+  REGISTRY: 'registry.gitlab.com/ebaneck/docker-ci_storelift'
+
 image: registry.gitlab.com/ebaneck/docker-ci_storelift/build-env
 stages:
   - build
   - test
+  - release
 
 #directories to cache between jobs
 #adding build path to cache so that compiled binary is passed to test job
@@ -22,3 +26,17 @@ testing:
   stage: test
   when: always
   script: ./build/test
+
+
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY  
+
+build-release:
+  stage: release
+  script:
+    - IMAGE_NAME='build-release'
+    - docker build -t $IMAGE_NAME:$CI_COMMIT_SHA .
+    - docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
+    - docker push $REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
+  only:
+    - master
