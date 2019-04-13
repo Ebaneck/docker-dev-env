@@ -1,2 +1,4 @@
+#this host works with vagrant box
+#change it to suite a vps on aws
 [gitlab-ci-stack]
 172.16.2.15
