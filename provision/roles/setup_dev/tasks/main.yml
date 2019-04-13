@@ -1,0 +1,82 @@
+- name: Update apt
+  apt: update_cache=yes
+
+#install open jdk task here not the java version
+
+- name: Install packages
+  sudo: yes
+  apt: pkg={{ item }}
+  state: installed
+  with_items:
+
+      - git
+      # Database
+      - postgresql-9.6
+      - postgresql-9.6-postgis-2.3
+      - libpq-dev # Required for Ansible to interact with postgres
+      - python-psycopg2 # Required for Ansible to interact with postgres
+
+      # Python Dev
+      - python-dev
+      - python-setuptools
+      - python-virtualenv
+      - python3-pip
+      - atom
+      - pycharm
+      - vim
+      - jq
+
+
+- name: Start PostgreSQL and enable at boot
+  service:
+     name: postgresql
+     enabled: yes
+     state: started
+
+#add a postgres user 
+
+- name: Add the user 
+  user:
+    name: postgres
+    state: present
+    password: af3j4lkafjkaj932kmf321@
+
+- name: Ensure postgresql is listening on all localhost
+  lineinfile:
+    dest: /etc/postgresql/9.6/main/postgresql.conf
+    regexp: '^#?listen_addresses\s*='
+    line: "listen_addresses = '*'"
+    state: present
+    backrefs: yes
+  notify: restart postgresql
+
+- name: Add local peer authentication
+  lineinfile:
+    dest: /etc/postgresql/9.6/main/pg_hba.conf
+    regexp: 'local\s+all\s+all\s+peer'
+    line: 'local all all md5'
+    insertbefore: BOF
+    backrefs: yes
+  notify: restart postgresql
+
+
+- name: allow private ip authentication to postgres
+  lineinfile:
+    dest: /etc/postgresql/9.6/main/pg_hba.conf
+    line: 'host    all             all             192.168.32.10/24            md5'
+
+
+- name: Create Database
+  sudo: yes
+  sudo_user: postgres
+  postgresql_db: name={{ db_name }}
+
+- name: Create User
+  sudo: yes
+  sudo_user: postgres
+  postgresql_user: name={{ db_user }} password={{ db_password }} state=present role_attr_flags=NOSUPERUSER,CREATEDB
+
+- name: Provide user with DB permissions
+  sudo: yes
+  sudo_user: postgres
+  postgresql_user: user={{ db_user }} db={{ db_name }} priv=ALL

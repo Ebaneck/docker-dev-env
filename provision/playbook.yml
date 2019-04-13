@@ -1,4 +1,5 @@
 - hosts: all
   become: true
   roles:
-      - setup
+      - setup_dev
+      - setup_cplusplus_dev
