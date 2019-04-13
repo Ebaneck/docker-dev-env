@@ -1,0 +1,24 @@
+#add docker registry with cpp compilers ready
+#use a private registry using
+#image: <your docker registry>:5000/build-env
+
+image: ubuntu:18.04
+stages:
+  - build
+  - test
+
+#directories to cache between jobs
+#adding build path to cache so that compiled binary is passed to test job
+cache:
+    paths:
+    - build/
+
+build:
+  stage: build
+  script:
+    - makes
+
+testing:
+  stage: test
+  when: always
+  script: ./build/test
