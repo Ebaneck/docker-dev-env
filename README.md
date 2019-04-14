@@ -24,6 +24,8 @@ For this exercise, we will be using the cpp application to build, test and deplo
 https://gitlab.com/Ebaneck/demo_apps 
 
 ```
+The pipeline to build the above C++ application is described here 
+[Gitlab C++ CI/CD pipeline](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/pipeline.png)
 
 - dev
 Contains instructions on how to build deployment and dev images. This is where we package our images with the various tools [Link](https://gitlab.com/Ebaneck/docker-ci_storelift)
@@ -81,6 +83,9 @@ Working example of Qtcreator on docker
 We have integrate slack as webhooks to gitlab, making it possible to receive updates when a build is complete.
 
 [Slack CI notifications](https://github.com/Ebaneck/docker-dev-env/blob/master/img/slack%20notif.png)
+
+
+
 
 
 5. To destroy you dev environment, use below
