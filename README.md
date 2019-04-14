@@ -76,7 +76,14 @@ Working example of Qtcreator on docker
 [Run IDE for C++](https://github.com/Ebaneck/docker-dev-env/blob/master/img/qtcreator.png)
 
 
-5. TO destroy you dev environment, use below
+# Slack notification intergration
+
+We have integrate slack as webhooks to gitlab, making it possible to receive updates when a build is complete.
+
+[Slack CI notifications](https://github.com/Ebaneck/docker-dev-env/blob/master/img/slack%20notif.png)
+
+
+5. To destroy you dev environment, use below
 Note: Destroying the container with commiting your work to version control(gitlab) is dangerous
 
 ```
