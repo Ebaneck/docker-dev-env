@@ -18,7 +18,7 @@ Contains ansible playbook to provision a developer environment. A readme is incl
 
 - apps
 Contains demo helloworld applications both in C++ and in python(django)
-For this exercise, we will be using the cpp application to build, test and deploy a release image with tags to our image registry [Link](https://gitlab.com/Ebaneck/demo_apps")
+For this exercise, we will be using the cpp application to build, test and deploy a release image with tags to our image registry [Link](https://gitlab.com/Ebaneck/demo_apps)
 
 ```
 https://gitlab.com/Ebaneck/demo_apps 
@@ -26,7 +26,7 @@ https://gitlab.com/Ebaneck/demo_apps
 ```
 
 - dev
-Contains instructions on how to build deployment and dev images. This is where we package our images with the various tools [Link](https://gitlab.com/Ebaneck/docker-ci_storelift")
+Contains instructions on how to build deployment and dev images. This is where we package our images with the various tools [Link](https://gitlab.com/Ebaneck/docker-ci_storelift)
 
 
 ```
