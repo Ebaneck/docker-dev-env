@@ -11,14 +11,16 @@ mettre en place un système afin de géré un environnement de dev pour lancer u
 # Outcome
 Cet environnement sera duplicable et déployable facilement.
 
-# Get started Developers
+# Getting started for Developers
 
 As a developer, to get started developing our amazing solution is super simple.
 
-1. Clone this repository using
+1. Clone this repository in you home directory using
 
 ```
-git clone repo-name
+git clone https://github.com/Ebaneck/docker-dev-env.git
+
+cd docker-dev-env
 ```
 
 2. Install ansible on your host machine using
@@ -36,7 +38,7 @@ ansible-playbook -i inventory.yml playbook.yml
 4. To connect to dev environment, use
 
 ```
-docker exec -it storelift_dev bash
+docker exec -it storelift_dev bash -l
 ```
 
 5. TO destroy you dev environment, use below
