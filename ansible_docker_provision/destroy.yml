@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  tasks:
+    - docker_container:
+        name: storelift_dev 
+        state: absent

@@ -1,0 +1,7 @@
+all:
+  hosts:
+    #defines name of container
+    storelift_dev:
+    #defines the driver that ansible will use to connect to the host
+      ansible_connection: docker
+      ansible_python_interpreter: python

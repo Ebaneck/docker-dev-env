@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  tasks:
+    - docker_container:
+        name: storelift_dev 
+        image: registry.gitlab.com/ebaneck/docker-ci_storelift/build-env
+        command: ["sleep", "1d"]
+
+- name: Complete provision of the dev environment for cpp
+  hosts: storelift_dev 
+  roles:
+    - name: "docker-role"

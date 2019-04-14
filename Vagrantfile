@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
 # Add provisioner for Vagrant using ansible on the guest machine
 # Avoid installing unnecessary softwares on our host machine
     config.vm.provider "ansible_local" do |ansible|
-        ansible.playbook = "provision/playbook.yml"
+        ansible.playbook = "provision_vagrant/playbook.yml"
         ansible.sudo = true
     end
 
