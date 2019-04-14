@@ -69,6 +69,13 @@ ansible-playbook -i inventory.yml playbook.yml
 docker exec -it storelift_dev bash -l
 ```
 
+Working example of Qtcreator on docker 
+
+[Connect as Storelift developer](https://github.com/Ebaneck/docker-dev-env/blob/master/img/connect_docker.png)
+
+[Run IDE for C++](https://github.com/Ebaneck/docker-dev-env/blob/master/img/qtcreator.png)
+
+
 5. TO destroy you dev environment, use below
 Note: Destroying the container with commiting your work to version control(gitlab) is dangerous
 
