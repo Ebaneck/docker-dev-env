@@ -73,3 +73,9 @@ Note: Destroying the container with commiting your work to version control(gitla
 ```
 ansible-playbook destroy.yml
 ```
+
+# Recommendations
+
+Docker today looks like a great option for creating Dev Environment, but I still think virtual box with vagrant provisioned using ansible is a better and stable alternative to building long term Dev Development environment.
+
+I have included a proof of concept using vagrant, ansible and virtualbox in `provision_vagrant` directory
