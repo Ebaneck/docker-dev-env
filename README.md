@@ -73,16 +73,16 @@ docker exec -it storelift_dev bash -l
 
 Working example of Qtcreator on docker 
 
-[Connect as Storelift developer](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/blob/master/img/connect_docker.png)
+[Connect as Storelift developer](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/connect_docker.png)
 
-[Run IDE for C++](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/blob/master/img/qtcreator.png)
+[Run IDE for C++](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/qtcreator.png)
 
 
 # Slack notification intergration
 
 We have integrate slack as webhooks to gitlab, making it possible to receive updates when a build is complete.
 
-[Slack CI notifications](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/blob/master/img/slack%20notif.png)
+[Slack CI notifications](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/slack%20notif.png)
 
 
 
