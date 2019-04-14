@@ -13,10 +13,12 @@ Cet environnement sera duplicable et déployable facilement.
 
 # Directory layout and contains
 
-- ansible_docker_provision
+- ansible_docker_provision:
+
 Contains ansible playbook to provision a developer environment. A readme is included on how to get started
 
-- apps
+- apps:
+
 Contains demo helloworld applications both in C++ and in python(django)
 For this exercise, we will be using the cpp application to build, test and deploy a release image with tags to our image registry [Link](https://gitlab.com/Ebaneck/demo_apps)
 
@@ -27,7 +29,8 @@ https://gitlab.com/Ebaneck/demo_apps
 The pipeline to build the above C++ application is described here 
 [Gitlab C++ CI/CD pipeline](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/pipeline.png)
 
-- dev
+- dev:
+
 Contains instructions on how to build deployment and dev images. This is where we package our images with the various tools [Link](https://gitlab.com/Ebaneck/docker-ci_storelift)
 
 
@@ -35,10 +38,12 @@ Contains instructions on how to build deployment and dev images. This is where w
 https://gitlab.com/Ebaneck/docker-ci_storelift 
 ```
 
-- Gitlab
+- Gitlab:
+
 Contains instructions on how to deploy and host an in-house gitlab with runners and docker capabilities
 
-- provision_vagrant
+- provision_vagrant:
+
 Contains scripts on how to provision a vagrant box with development tools. Only python dev environment has been completed using `ansible` as the provisioner
 
 # Getting started for Developers
