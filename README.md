@@ -15,7 +15,7 @@ Cet environnement sera duplicable et déployable facilement.
 
 - ansible_docker_provision:
 
-Contains ansible playbook to provision a developer environment. A readme is included on how to get started
+Contains ansible playbook to provision a developer environment. Steps on how to get started is included below
 
 - apps:
 
@@ -55,7 +55,7 @@ As a developer, to get started developing our amazing solution is super simple.
 ```
 git clone https://github.com/Ebaneck/docker-dev-env.git
 
-cd docker-dev-env
+cd docker-dev-env/ansible_docker_provision
 ```
 
 2. Install ansible on your host machine using
@@ -69,6 +69,11 @@ sudo apt-get install ansible
 ```
 ansible-playbook -i inventory.yml playbook.yml
 ```
+Once the playbook is complete, we can verify that a dev docker container is running using
+
+```
+docker ps -a
+```
 
 4. To connect to dev environment, use
 
@@ -76,7 +81,7 @@ ansible-playbook -i inventory.yml playbook.yml
 docker exec -it storelift_dev bash -l
 ```
 
-# Voila! Complete dev environment 
+# Voila! Complete dev environment  outcome
 
 [Connect as Storelift developer](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/connect_docker.png)
 
@@ -85,16 +90,17 @@ docker exec -it storelift_dev bash -l
 
 # Slack notification intergration
 
-We have integrate slack as webhooks to gitlab, making it possible to receive updates when a build is complete.
+We have integrated slack as webhooks to gitlab, making it possible to receive updates when a build is complete.
 
 [Slack CI notifications](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/slack%20notif.png)
 
 
 
 
-
 5. To destroy you dev environment, use below
-Note: Destroying the container with commiting your work to version control(gitlab) is dangerous
+Note: Destroying the container without commiting your work to version control(gitlab) is not tolerated
+
+We could mount a host volume, so that developers can store their work on the host machine.
 
 ```
 ansible-playbook destroy.yml
@@ -105,3 +111,5 @@ ansible-playbook destroy.yml
 Docker today looks like a great option for creating Dev Environment, but I still think virtual box with vagrant provisioned using ansible is a better and stable alternative to building long term Dev Development environment.
 
 I have included a proof of concept using vagrant, ansible and virtualbox in `provision_vagrant` directory
+
+Thanks for reading through. Feel free to raise any issues you may have. 
