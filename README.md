@@ -76,7 +76,7 @@ ansible-playbook -i inventory.yml playbook.yml
 docker exec -it storelift_dev bash -l
 ```
 
-Working example of Qtcreator on docker 
+# Voila! Complete dev environment 
 
 [Connect as Storelift developer](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/connect_docker.png)
 
