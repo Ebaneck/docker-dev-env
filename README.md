@@ -11,6 +11,24 @@ mettre en place un système afin de géré un environnement de dev pour lancer u
 # Outcome
 Cet environnement sera duplicable et déployable facilement.
 
+# Directory layout and contains
+
+- ansible_docker_provision
+Contains ansible playbook to provision a developer environment. A readme is included on how to get started
+
+- apps
+Contains demo helloworld applications both in C++ and in python(django)
+For this exercise, we will be using the cpp application to build, test and deploy a release image with tags to our image registry
+
+- dev
+Contains instructions on how to build deployment and dev images. This is where we package our images with the various tools
+
+- Gitlab
+Contains instructions on how to deploy and host an in-house gitlab with runners and docker capabilities
+
+- provision_vagrant
+Contains scripts on how to provision a vagrant box with development tools. Only python dev environment has been completed using `ansible` as the provisioner
+
 # Getting started for Developers
 
 As a developer, to get started developing our amazing solution is super simple.
