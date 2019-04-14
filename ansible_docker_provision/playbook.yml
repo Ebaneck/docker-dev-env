@@ -6,10 +6,10 @@
         image: registry.gitlab.com/ebaneck/docker-ci_storelift/dev-env
         volumes:
           - /tmp/.X11-unix:/tmp/.X11-unix:rw
-        #command: ["sleep", "1d"]
+        command: ["sleep", "1d"]
 
 #add packages to the running docker container here
-- name: Example play
-  hosts: storelift_dev 
-  roles:
-    - name: "docker-role"
+#- name: Example play
+# hosts: storelift_dev 
+#  roles:
+#    - name: "docker-role"
