@@ -1,21 +1,14 @@
 #!/bin/bash
-set -ex
-
-SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+#set -ex
 
 IMAGE=registry.gitlab.com/ebaneck/docker-ci_storelift/dev-env
-CONTAINER_NAME=cpp_python_storeliftdev
+CONTAINER_NAME=storelift_dev
 
 #project directory you will like to mount
-DEMO_HOME=$SCRIPTDIR/dev-env-home
+DEMO_HOME=$HOME/dev-env-home
 
 mkdir -p $DEMO_HOME
 
-FONTCONF=.config/fontconfig/fonts.conf
-if [ ! -e  $DEMO_HOME/$FONTCONF ] ; then
-    mkdir -p `dirname $DEMO_HOME/$FONTCONF`
-    cp $HOME/$FONTCONF $DEMO_HOME/$FONTCONF
-fi
 
 # Make xorg disable access control, i.e. let any x client connect to our
 

@@ -1,8 +1,2 @@
 ---
 # tasks file for docker-role
-# our container image is already package with dev tools
-# we only need to make qtcreator work with docker using the shell script below
-
-- name: Update apt
-  apt: update_cache=yes
-
