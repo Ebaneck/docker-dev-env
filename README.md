@@ -31,8 +31,11 @@ The pipeline to build the above C++ application is described here
 
 - dev:
 
-Contains instructions on how to build deployment and dev images. This is where we package our images with the various tools [Link](https://gitlab.com/Ebaneck/docker-ci_storelift)
+Contains instructions on how to build and deploy dev images. This is where we package our images with the various tools [Link](https://gitlab.com/Ebaneck/docker-ci_storelift)
 
+These images are built automatically on each push and published to our gitlab registry.
+
+Here is  a look of the current images in the registry: [Gitlab image registry ](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/registry.png)
 
 ```
 https://gitlab.com/Ebaneck/docker-ci_storelift 
