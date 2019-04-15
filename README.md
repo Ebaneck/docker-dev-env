@@ -47,7 +47,7 @@ https://gitlab.com/Ebaneck/docker-ci_storelift
 
 Contains instructions on how to deploy and host an in-house gitlab with runners and docker capabilities. A work in progress!!
 
-- provision_vagrant:
+### provision_vagrant:
 
 Contains scripts on how to provision a vagrant box with development tools. Only python dev environment has been completed using `ansible` as the provisioner
 
