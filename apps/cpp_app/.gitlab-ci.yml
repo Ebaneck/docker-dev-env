@@ -3,40 +3,54 @@
 #image: <your docker registry>:5000/build-env
 
 variables:
-  REGISTRY: 'registry.gitlab.com/ebaneck/docker-ci_storelift'
+  REGISTRY: 'registry.gitlab.com/ebaneck/demo_apps'
 
 image: registry.gitlab.com/ebaneck/docker-ci_storelift/build-env
+
+services:
+  - docker:dind
+
 stages:
   - build
   - test
   - release
 
-#directories to cache between jobs
-#adding build path to cache so that compiled binary is passed to test job
-cache:
-    paths:
-    - build/
+before_script:
+  - apt-get update
+  - apt-get install -y gcc g++
+#before_script:
+ # - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY  
+
 
 build:
   stage: build
   script:
-    - make
+    - g++ helloworld.cpp -o helloworld
+
+#directories to cache between jobs
+#adding build path to cache so that compiled binary is passed to test job
+
+#cache:
+#   paths:
+#    - build/
 
 testing:
   stage: test
   when: always
-  script: ./build/test
-
-
-before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY  
-
-build-release:
-  stage: release
   script:
-    - IMAGE_NAME='build-release'
-    - docker build -t $IMAGE_NAME:$CI_COMMIT_SHA .
-    - docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
-    - docker push $REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
-  only:
-    - master
+    - g++ helloworld.cpp -o helloworld
+    - chmod +x ./test.sh
+    - ./test.sh
+
+#no release and deployment pipeline now
+
+#build-release:
+#  stage: release
+#  script:
+#    - IMAGE_NAME='app-release'
+#    - docker build -t $IMAGE_NAME:$CI_COMMIT_SHA .
+#    - docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
+#    - docker push $REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
+#  only:
+#    - master
+
