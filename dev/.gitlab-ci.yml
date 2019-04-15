@@ -19,8 +19,8 @@ build-env:
     - cd build-env
     - IMAGE_NAME='build-env'
     - docker build -t $IMAGE_NAME .
-    - docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME
-    - docker push $REGISTRY/$IMAGE_NAME
+    - docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
+    - docker push $REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
   only:
     - master
 
@@ -30,7 +30,7 @@ dev-env:
     - cd dev-env
     - IMAGE_NAME='dev-env'
     - docker build -t $IMAGE_NAME .
-    - docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME
-    - docker push $REGISTRY/$IMAGE_NAME
+    - docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
+    - docker push $REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
   only:
     - master
