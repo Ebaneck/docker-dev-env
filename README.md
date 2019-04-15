@@ -88,15 +88,6 @@ docker exec -it storelift_dev bash -l
 [Run IDE for C++](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/qtcreator.png)
 
 
-# Slack notification intergration
-
-We have integrated slack as webhooks to gitlab, making it possible to receive updates when a build is complete.
-
-[Slack CI notifications](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/slack%20notif.png)
-
-
-
-
 5. To destroy you dev environment, use below
 Note: Destroying the container without commiting your work to version control(gitlab) is not tolerated
 
@@ -105,6 +96,32 @@ We could mount a host volume, so that developers can store their work on the hos
 ```
 ansible-playbook destroy.yml
 ```
+
+# Slack notification intergration
+
+We have integrated slack as webhooks to gitlab, making it possible to receive updates when a build is complete.
+
+## Adding slack for notifications
+
+To add slack notifications to our build pipeline,
+i. Go to the Settings/Integrations on gitlab
+
+ii. Select slack notifications
+
+iii. Choose the notification type ie git merge events, git push events etc
+- You will need to add  a webhook call back url gotten from a slack app below
+
+iv. Head over to slack and create a new slack channel
+
+v.  Now go to the slack api and create a new application
+
+vi. Obtain the incoming webhooks generated for the slack application and add this field to gitlab in (iii.) above
+
+vii. Click the test and deploy button to save
+
+Now, you should have slack notifications intergrated to gitlabs and working correctly like below
+
+[Slack CI notifications preview](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/slack%20notif.png)
 
 # Recommendations
 
