@@ -20,7 +20,7 @@ Contains ansible playbook to provision a developer environment. Steps on how to 
 - apps:
 
 Contains demo helloworld applications both in C++ and in python(django)
-For this exercise, we will be using the cpp application to build, test and deploy a release image with tags to our image registry [Link](https://gitlab.com/Ebaneck/demo_apps)
+For this exercise, we will be using the cpp application to build, test and deploy a release image with tags to our image registry  [Link](https://gitlab.com/Ebaneck/demo_apps)
 
 ```
 https://gitlab.com/Ebaneck/demo_apps 
@@ -31,9 +31,11 @@ The pipeline to build the above C++ application is described here
 
 - dev:
 
-Contains instructions on how to build and deploy dev images. This is where we package our images with the various tools [Link](https://gitlab.com/Ebaneck/docker-ci_storelift)
+Contains instructions on how to build and deploy our compiled docker images. This is where we package our images with the various tools [Link](https://gitlab.com/Ebaneck/docker-ci_storelift)
 
-These images are built automatically on each push and published to our gitlab registry.
+These images are built automatically on each push and published to our gitlab registry. Two types of images are kept in the registry.
+- Build images(ready made image for deploying our applications)
+- Dev Images (required Images for building a developer development environment)
 
 Here is  a look of the current images in the registry: [Gitlab image registry ](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/registry.png)
 
@@ -43,15 +45,15 @@ https://gitlab.com/Ebaneck/docker-ci_storelift
 
 - Gitlab:
 
-Contains instructions on how to deploy and host an in-house gitlab with runners and docker capabilities
+Contains instructions on how to deploy and host an in-house gitlab with runners and docker capabilities. A work in progress!!
 
 - provision_vagrant:
 
 Contains scripts on how to provision a vagrant box with development tools. Only python dev environment has been completed using `ansible` as the provisioner
 
-# Getting started for Developers
+# Getting started for Developers(Linux debian + Ubuntu)
 
-As a developer, to get started developing our amazing solution is super simple.
+As a developer, to get started developing our amazing solution, follow the steps below.
 
 1. Clone this repository in you home directory using
 
@@ -84,17 +86,21 @@ docker ps -a
 docker exec -it storelift_dev bash -l
 ```
 
-# Voila! Complete dev environment  outcome
+# Voila! Complete dev environment ready
 
 [Connect as Storelift developer](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/connect_docker.png)
 
 [Run IDE for C++](https://raw.githubusercontent.com/Ebaneck/docker-dev-env/master/img/qtcreator.png)
 
+The above are example outcomes when the developer environment has been setup completely.
 
-5. To destroy you dev environment, use below
+## Danger :)
+
+5. To destroy your dev environment, use below
 Note: Destroying the container without commiting your work to version control(gitlab) is not tolerated
 
-We could mount a host volume, so that developers can store their work on the host machine.
+Remedy:
+We could mount a host volume, so that developers can store their work on the host machine directly.
 
 ```
 ansible-playbook destroy.yml
@@ -102,21 +108,22 @@ ansible-playbook destroy.yml
 
 # Slack notification intergration
 
-We have integrated slack as webhooks to gitlab, making it possible to receive updates when a build is complete.
+We have integrated slack as webhooks to gitlab, making it possible to receive updates when a build is started, failed or complete.
 
 ## Adding slack for notifications
 
-To add slack notifications to our build pipeline,
+To add slack notifications to our build pipeline;
+
 i. Go to the Settings/Integrations on gitlab
 
 ii. Select slack notifications
 
 iii. Choose the notification type ie git merge events, git push events etc
-- You will need to add  a webhook call back url gotten from a slack app below
+- You will need to add a webhook call back url gotten from a slack app below
 
 iv. Head over to slack and create a new slack channel
 
-v.  Now go to the slack api and create a new application
+v.  Now go to the slack api and create a new slack application
 
 vi. Obtain the incoming webhooks generated for the slack application and add this field to gitlab in (iii.) above
 
